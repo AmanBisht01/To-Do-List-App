@@ -22,17 +22,14 @@ public class NoteAdapter extends RecyclerView.Adapter <NoteAdapter.NoteHolder>{
     ItemClicked itemClicked;
     ViewGroup parent;
 
-    public NoteAdapter(ArrayList<Notes> arrayList,Context context){
-       this.notes=arrayList;
-        this.context=context;
 
-    }
     public NoteAdapter(ArrayList<Notes> arrayList,Context context,ItemClicked itemClicked){
         this.notes=arrayList;
         this.context=context;
         this.itemClicked=itemClicked;
-
     }
+
+
     @NonNull
     @Override
     public NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,8 +37,6 @@ public class NoteAdapter extends RecyclerView.Adapter <NoteAdapter.NoteHolder>{
         View view= LayoutInflater.from(context).inflate(R.layout.note_holder, parent,false);
         this.parent=parent;
         return new NoteHolder(view);
-
-
     }
 
     @Override
@@ -69,7 +64,7 @@ public class NoteAdapter extends RecyclerView.Adapter <NoteAdapter.NoteHolder>{
             discription=itemView.findViewById(R.id.txt_node_description);
             imgedit=itemView.findViewById(R.id.imgEdit);
 
-            imgedit.setOnClickListener(new View.OnClickListener() {
+            discription.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                 if(discription.getMaxLines()==1){
