@@ -3,12 +3,16 @@ package com.aman.to_dolistapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,9 +105,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadnotes(){
         notes=readnotes();
-        noteAdapter=new NoteAdapter(notes, MainActivity.this);
+        noteAdapter=new NoteAdapter(notes, MainActivity.this, new NoteAdapter.ItemClicked() {
+            @Override
+            public void onclick(int position, View view) {
+                editnote(notes.get(position).getId(), view);
+            }
+        });
         recyclerView.setAdapter(noteAdapter);
 
     }
+    private void editnote(int noteId,View view){
+        NotesHandler notesHandler=new NotesHandler(this);
+        Notes note=notesHandler.readSingleNote(noteId);
+        Intent intent=new Intent(MainActivity.this ,EditNote.class);
+        intent.putExtra("title", note.getTitle());
+        intent.putExtra("description", note.getDescription());
+        intent.putExtra("id", note.getId());
+        ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation(this,view,ViewCompat.getTransitionName(view));
+        startActivity(intent,optionsCompat.toBundle());
 
+    }
+        
 }
