@@ -73,12 +73,11 @@ public class NotesHandler extends  Databasehelper{
         ContentValues values=new ContentValues();
         values.put("title", note.getTitle());
         values.put("description", note.getDescription());
-
         SQLiteDatabase db=this.getWritableDatabase();
-        boolean issucessful=db.update("Notes", values, "id'"+note.getId()+"'",null)>0;
+        boolean issucessful =db.update("Notes", values, "id='"+note.getId()+"'",null)>0;
         db.close();
         return  issucessful;
-
+//         return true;
      }
 
      public Boolean delete(int id){

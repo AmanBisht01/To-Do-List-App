@@ -21,14 +21,13 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_add"
         android:background="@drawable/add_button_shape"
         android:elevation="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:contentDescription="@string/add" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"

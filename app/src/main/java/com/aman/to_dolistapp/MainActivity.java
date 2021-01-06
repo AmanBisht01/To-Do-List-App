@@ -1,17 +1,6 @@
 package com.aman.to_dolistapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +8,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -37,19 +36,15 @@ public class MainActivity extends AppCompatActivity {
         imageButton =findViewById(R.id.imageButton);
 
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LayoutInflater inflater=(LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View viewInput=inflater.inflate(R.layout.note_input, null,false);
+        imageButton.setOnClickListener(v -> {
+            LayoutInflater inflater=(LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View viewInput=inflater.inflate(R.layout.note_input, null,false);
 
-                final EditText editTitle = viewInput.findViewById(R.id.edit_title);
-                final EditText editdescription = viewInput.findViewById(R.id.edit_description);
+            final EditText editTitle = viewInput.findViewById(R.id.edit_title);
+            final EditText editdescription = viewInput.findViewById(R.id.edit_description);
 
-                new AlertDialog.Builder(MainActivity.this).setView(viewInput).setTitle("Add Note").setPositiveButton("ADD",
-                        new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
+            new AlertDialog.Builder(MainActivity.this).setView(viewInput).setTitle("Add Note").setPositiveButton("ADD",
+                    (dialog, id) -> {
                         String title=editTitle.getText().toString();
                         String description=editdescription.getText().toString();
 
@@ -65,10 +60,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         dialog.cancel();
 
-                    }
-                }).show();
+                    }).show();
 
-            }
         });
 
         recyclerView=findViewById(R.id.recycle);
@@ -105,12 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadnotes(){
         notes=readnotes();
-        noteAdapter=new NoteAdapter(notes, MainActivity.this, new NoteAdapter.ItemClicked() {
-            @Override
-            public void onclick(int position, View view) {
-                editnote(notes.get(position).getId(), view);
-            }
-        });
+        noteAdapter=new NoteAdapter(notes, MainActivity.this, (position, view) -> editnote(notes.get(position).getId(), view));
         recyclerView.setAdapter(noteAdapter);
 
     }
@@ -121,9 +109,22 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("title", note.getTitle());
         intent.putExtra("description", note.getDescription());
         intent.putExtra("id", note.getId());
+
         ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation(this,view,ViewCompat.getTransitionName(view));
-        startActivity(intent,optionsCompat.toBundle());
+        startActivityForResult(intent, 1, optionsCompat.toBundle());
+
 
     }
-        
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            loadnotes();
+        }
+
+    }
+
+
+
 }

@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="title"
+
 
                 android:orientation="horizontal"
                 android:textColor="@android:color/white"
@@ -45,7 +45,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:inputType="textImeMultiLine"
-                />
+                android:autofillHints="title"
+                tools:ignore="LabelFor" />
 
             <EditText
                 android:id="@+id/edi_edit_description"
@@ -56,7 +57,7 @@
                 android:gravity="center_horizontal|bottom"
                 android:inputType="textMultiLine"
                 android:orientation="horizontal"
-                android:text="Description"
+
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="normal"
@@ -66,7 +67,9 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edi_edit_text"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                android:autofillHints="cb"
+                tools:ignore="LabelFor" />
 
             <LinearLayout
                 android:id="@+id/btnholder"
@@ -83,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:background="@drawable/button_space"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
 
@@ -96,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:background="@drawable/button_space"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
 
