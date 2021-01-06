@@ -1,7 +1,8 @@
 # To-Do-List-App
 
-Basic TO-Do App 
-Database used SQLite
+Basic TO-Do App   
+
+Database: SQLite
 
 Screen Shot:
 
